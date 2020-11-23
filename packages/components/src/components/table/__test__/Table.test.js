@@ -1,6 +1,9 @@
 import React from 'react';
 import { mount, render } from 'enzyme';
 import Table from '../index';
+import Title, { getNextSortDirection } from '../Title';
+import { collectSortStates } from '../hook/useSorter';
+import { collectFilterStates } from '../hook/useFilter';
 
 const dataSource = [
   {
@@ -44,6 +47,7 @@ const columns = [
       if (value === '名字仨字') {
         return record.name.length === 3;
       }
+      return false;
     },
   },
   {
@@ -60,6 +64,7 @@ const columns = [
       if (value === '大人') {
         return record.age > 22;
       }
+      return false;
     },
   },
   {
@@ -77,6 +82,7 @@ const columns = [
       if (value === 70) {
         return record.weight === 70;
       }
+      return false;
     },
   },
 ];
@@ -105,6 +111,19 @@ describe('Testing Table', () => {
     }).not.toThrow();
   });
 
+  test('props prefixCls', () => {
+    const wrapper = mount(getTable());
+    wrapper.setProps({ prefixCls: 'custom-prefix' });
+    expect(wrapper.exists('.custom-prefix-table')).toBe(true);
+    expect(wrapper.exists('.gio-table')).toBe(false);
+  });
+
+  test('props className', () => {
+    const wrapper = mount(getTable());
+    wrapper.setProps({ className: 'custom-classname' });
+    expect(wrapper.exists('.custom-classname')).toBe(true);
+  });
+
   test('props title', () => {
     const wrapper = mount(getTable());
     expect(wrapper.exists('.gio-table-title')).toBe(true);
@@ -125,38 +144,46 @@ describe('Testing Table', () => {
     expect(wrapper.exists('.gio-table-column-sorter')).toBe(true);
   });
 
-  test('when dataSource update and page count less than current, pagination reset', () => {
-    const data10 = Array.from({ length: 10 }, (_, key) => ({ a: key, key }));
-    const data20 = Array.from({ length: 20 }, (_, key) => ({ a: key, key }));
+  test('column key rule', () => {
+    /**/
+  });
 
+  test('getNextSortDirection function', () => {
+    expect(getNextSortDirection(['1', '2', null], '1')).toBe('2');
+    expect(getNextSortDirection(['1', '2', null], '2')).toBe(null);
+    expect(getNextSortDirection(['1', '2', null], null)).toBe('1');
+  });
+
+  test('Title component', () => {
+    const updateSorterStates = jest.fn();
+    const updateFilterStates = jest.fn();
+    const onTriggerStateUpdate = jest.fn();
     const wrapper = mount(
-      <Table
-        title="列表标题"
-        dataSource={data20}
-        columns={[
-          {
-            title: 'a',
-            dataIndex: 'a',
-          },
-        ]}
-        pagination={{
-          pageSize: 5,
-        }}
+      <Title
+        prefixCls="gio-table"
+        sorterState={collectSortStates(columns)[0]}
+        filterState={collectFilterStates(columns)[0]}
+        column={columns[0]}
+        updateSorterStates={updateSorterStates}
+        updateFilterStates={updateFilterStates}
+        onTriggerStateUpdate={onTriggerStateUpdate}
       />
     );
-    // update
-    wrapper.find('.gio-pagination-item').at(3).simulate('click');
-    wrapper.setProps({ dataSource: data10 });
-    expect(() => {
-      expect(wrapper.find('.gio-pagination-item').first().text()).toBe('1');
-      expect(wrapper.find('.gio-pagination-total-text').first().text()).toBe(`总共 ${Number(10).toLocaleString()} 条`);
-    });
-    // not update
-    wrapper.find('.gio-pagination-item').at(1).simulate('click');
-    wrapper.setProps({ dataSource: data20 });
-    expect(() => {
-      expect(wrapper.find('.gio-pagination-item-active').first().text()).toBe('2');
-      expect(wrapper.find('.gio-pagination-total-text').first().text()).toBe(`总共 ${Number(20).toLocaleString()} 条`);
-    });
+
+    expect(wrapper.exists('.gio-table-column-sorter')).toBe(true);
+    expect(wrapper.exists('.gio-table-column-filter')).toBe(true);
+    expect(wrapper.exists('.gio-table-column-title-info')).toBe(true);
+    wrapper.find('.gio-table-column-sorter-inner-btn').at(0).simulate('click');
+    expect(updateSorterStates).toBeCalled();
+    wrapper.find('.gio-table-column-filter-inner-btn').at(0).simulate('click');
+    expect(wrapper.exists('.gio-popover')).toBe(true);
+    wrapper.find('.gio-checkbox-inner').at(0).simulate('click');
+    wrapper.find('.gio-checkbox-inner').at(0).simulate('click');
+    wrapper.find('.gio-popover-inner-footer').at(0).find('.gio-btn').simulate('click');
+    expect(updateFilterStates).toBeCalled();
+    expect(onTriggerStateUpdate).toBeCalled();
+    wrapper.setProps({ sorterState: undefined, filterState: undefined });
+    expect(wrapper.exists('.gio-table-column-sorter')).toBe(false);
+    expect(wrapper.exists('.gio-table-column-filter')).toBe(false);
   });
 });

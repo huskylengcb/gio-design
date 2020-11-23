@@ -1,5 +1,7 @@
 @import '../../../stylesheet/index.less';
+
 @table-prefix-cls: ~'@{component-prefix}-table';
+@checkbox-prefix-cls: ~'@{component-prefix}-checkbox';
 
 .@{table-prefix-cls} {
   font-size: @size-font-14;
@@ -242,11 +244,10 @@
     }
   }
 
-  &-placeholder &-cell {
-    &:hover {
-      background-color: unset;
-    }
+  &-showHover &-placeholder:hover > &-cell {
+    background-color: unset;
   }
+
   &-wrapper {
     &::after {
       display: block;
@@ -260,7 +261,7 @@
   }
 
   &-filter-popover {
-    .gio-checkbox-wrapper {
+    .@{checkbox-prefix-cls}-wrapper {
       display: block;
       height: 40px;
     }

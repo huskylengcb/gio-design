@@ -1,12 +1,12 @@
 import { act } from 'react-dom/test-utils';
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { mount } from 'enzyme';
 import { renderHook } from '@testing-library/react-hooks';
 import { waitFor } from '@testing-library/react';
 
 import { FormProvider } from '../context';
-import Form from '..';
+import Form, { FormInstance } from '..';
 
 const { Item, useForm } = Form;
 
@@ -36,13 +36,14 @@ describe('<Form />', () => {
 
   it('render formItem', () => {
     const wrapper = mount(
-      <Form>
-        <Item>
+      <Form colon>
+        <Item label="username">
           <input type="text" />
         </Item>
       </Form>
     );
     expect(wrapper.find('.gio-field input')).toHaveLength(1);
+    expect(wrapper.find('.gio-field label').text()).toBe('username：');
   });
 
   it('can validate form field', async function testfn() {
@@ -97,5 +98,30 @@ describe('<Form />', () => {
     );
 
     wrapper.find('#form1 input').simulate('change', { target: { value: '123' } });
+
+    expect(wrapper.find('#form1 input').prop('value')).toBe('123');
+  });
+
+  it('should transparent colon and requiredMark to Form.Item', () => {
+    const wrapper = mount(
+      <Form colon requiredMark>
+        <Item colon className="test1" label="label1" required />
+        <Item colon className="test2" label="label2" required />
+        <Item colon className="test3" label="label3" />
+      </Form>
+    );
+
+    expect(wrapper.find('.test1 label').text()).toBe('label1：*');
+    expect(wrapper.find('.test2 label').text()).toBe('label2：*');
+    expect(wrapper.find('.test3 label').text()).toBe('label3：');
+  });
+
+  it('should accept a ref', () => {
+    const {
+      result: { current: formRef },
+    } = renderHook(() => useRef((null as unknown) as FormInstance<unknown>));
+    mount(<Form ref={formRef} />);
+
+    expect(typeof formRef.current.getFieldError).toBe('function');
   });
 });

@@ -1,7 +1,7 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import RcUpload from 'rc-upload';
 import classnames from 'classnames';
-import { ConfigContext } from '../config-provider';
+import usePrefixCls from '../../utils/hooks/use-prefix-cls';
 import {
   IUploadProps,
   ITriggerProps,
@@ -50,22 +50,19 @@ const Upload: React.FC<IUploadProps> = ({
   onRemove,
   openFileDialogOnClick = true,
   children,
+  placeholderImg,
   ...restProps
 }: IUploadProps) => {
   const [file, setFile] = useState<IUploadFile>(getEmptyFileObj());
 
   const rcUploadRef = useRef(null);
-  const { getPrefixCls } = useContext(ConfigContext);
-  const prefixCls = getPrefixCls('upload', customPrefixCls);
+  const prefixCls = usePrefixCls('upload', customPrefixCls);
 
-  const rootCls = classnames(className, prefixCls, successBorder ? {
+  const rootCls = classnames(className, prefixCls, {
     [`${prefixCls}--disabled`]: disabled,
-    [`${prefixCls}--success-border`]: file?.status === STATUS_SUCCESS,
     [`${prefixCls}--error`]: file?.status === STATUS_ERROR,
-    } : {
-    [`${prefixCls}--disabled`]: disabled,
-    [`${prefixCls}--success`]: file?.status === STATUS_SUCCESS,
-    [`${prefixCls}--error`]: file?.status === STATUS_ERROR,
+    [`${prefixCls}--success`]: file?.status === STATUS_SUCCESS && !successBorder,
+    [`${prefixCls}--success-border`]: file?.status === STATUS_SUCCESS && successBorder,
   });
 
   const Trigger = triggerMap[type];
@@ -99,7 +96,7 @@ const Upload: React.FC<IUploadProps> = ({
       response,
       status: STATUS_SUCCESS,
     };
-    
+
     try {
       if (fileOnSuccess.type.startsWith('image/')) {
         dataUrl = await imageFile2DataUrl(fileOnSuccess);
@@ -211,6 +208,7 @@ const Upload: React.FC<IUploadProps> = ({
     setFile,
     onRemove: handleRemove,
     onInputUpload: handleInputUpload,
+    placeholderImg,
   };
 
   return (

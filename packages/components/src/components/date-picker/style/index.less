@@ -5,16 +5,18 @@
 @import './decadePanel.less';
 
 @date-picker-prefix-cls: ~'@{component-prefix}-date-picker';
+@input-prefix-cls: ~'@{component-prefix}-input';
 
 .@{date-picker-prefix-cls}-wrapper {
   position: absolute;
   top: 45px;
   z-index: @zindex-dropdown;
 }
-
-.gio-input {
-  width: 253px;
-  height: 40px;
+.@{date-picker-prefix-cls}-wrap {
+  .@{input-prefix-cls} {
+    width: 253px;
+    height: 40px;
+  }
 }
 
 .@{date-picker-prefix-cls}-range-input {
@@ -26,12 +28,12 @@
   border-radius: 0.25rem;
   transition: all 0.3s ease-in-out;
 
-  .gio-input {
+  .@{input-prefix-cls} {
     width: 118px;
     height: 38px;
   }
 
-  .gio-input-content {
+  .@{input-prefix-cls}-content {
     border: none;
     box-shadow: none;
   }
@@ -101,7 +103,7 @@
     -webkit-user-select: none;
     user-select: none;
 
-    >a {
+    > a {
       display: inline-block;
       width: 30px;
       padding: 0 5px;

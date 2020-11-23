@@ -9,6 +9,111 @@ nav:
 
 # @gio-design/components 更新日志
 
+## 20.11.2
+
+- component
+  - 🛎 采用 usePrefix 以及 withConfigConsumer 进行组件 prefixCls 构建. [#485](https://github.com/growingio/gio-design/pull/485)
+  - Avatar
+    - 🐛 修复头像不能触发下拉列表.[#475](https://github.com/growingio/gio-design/pull/475)
+- 📖 修复所有的 eslint 报错信息.[#491](https://github.com/growingio/gio-design/pull/491)
+- 🛠 less-loader 版本号从 7.0.2 升级到 7.1.0.[#479](https://github.com/growingio/gio-design/pull/479)
+
+## 20.11.1
+
+- component
+  - Cascader
+    - 🆕 新增 级联选择器 [#469](https://github.com/growingio/gio-design/pull/469)
+  - Select
+    - 🐛 修复 状态为未选择时没有宽度的问题 ，修复 placeholder 不起作用的问题 [#466](https://github.com/growingio/gio-design/pull/466)
+    - 🐛 修复 输入内容时的一些样式错误 [#456](https://github.com/growingio/gio-design/pull/456)
+  - List
+    - 🆕 新增 stateless 参数 [#468](https://github.com/growingio/gio-design/pull/468)
+    - 🆕 新增 padding 样式 [#468](https://github.com/growingio/gio-design/pull/468)
+  - Table
+    - 🐛 引入依赖组件样式 [#470](https://github.com/growingio/gio-design/pull/470)
+  - Tooltip
+    - 🐛 修复 disabled 状态下不应该改变内部 visible 状态 [#465](https://github.com/growingio/gio-design/pull/465)
+  - Button
+    - 🐛 修复 父节点 mouseleave 事件无法被触发 当按钮是 disabled 的时候。[#464](https://github.com/growingio/gio-design/pull/464)
+  - Input, Textarea
+    - 🆕 textarea 新增 autosize 参数 [#461](https://github.com/growingio/gio-design/pull/461)
+    - 🐛 修复 rest 解构覆盖 value 属性的问题 [#458](https://github.com/growingio/gio-design/pull/458)
+  - Dropdown
+    - 🆕 定义交互逻辑，当未传 visible 参数点击 overlay 区域会关闭下拉框 [#450](https://github.com/growingio/gio-design/pull/450)
+  - date-picker
+    - 💄 修改全局的 gio-input 类名 [#446](https://github.com/growingio/gio-design/pull/446)
+- 📖 更新文档 alert, avatar , button [#467](https://github.com/growingio/gio-design/pull/467)
+
+## 20.11.0
+
+- component
+  - Select #393
+    - 🆕 新增 disabled 禁用功能
+    - 🆕 新增 allowCustomOption 可开启通过搜索输入增加 option
+    - 🆕 新增 notFoundContent 可配置无搜索结果的展示内容
+    - 🆕 新增 dropdownClassName && dropdownStyle 可对 dropdown overlay 进行样式设置
+    - 🆕 新增 borderd 属性，可配置有无边框
+    - 🆕 新增 arrowComponent 属性，可配置箭头 icon 组件
+    - 🆕 新增 autoWidth 属性, 可配置下拉框是否自动和选择框同宽
+    - 🆕 新增 matchPredicate 方法，是否有绝对匹配的判断方法，影响在有绝对匹配下的行为，例如是否需要创建新的 option
+    - 🆕 新增 onSearch 方法，当搜索框内容变化时返回
+    - 🆕 新增 onSelect 方法，选中时回调
+    - 🆕 新增 onDeSelect 方法，取消时回调
+    - 🆕 新增 dropDownVisible 属性，控制是否展示 dropdown
+    - 🆕 新增 onDropdownVisibleChange 方法，当 dropdown visible 属性改变时回调。
+    - 🛎 width, width 现可用 classname 或 style 来控制。
+    - 🛎 siz 属性现在可以受 sizeContext 控制
+    - 🛎 options 现在不允许自定义格式，保持和 List option 格式一致
+    - 🛎 value && defaultValue 现在可接受 string 或者 string[] 分别对应单选和多选模式
+    - 🛎 onChange 方法的输入值 (options: Option | Option[] ) 改为 (value: string | string[], options: Option | Option[])
+    - 🐛 修复 auto width 样式问题 #434
+  - Dropdown #395
+    - 🐛 修复点击后 onVisibleChange 没有被调用
+  - List #412
+    - 🆕 width 支持 string 类型
+  - SearchBar #408
+    - 🐛 让展示面板自适应 input 的宽度，并且让提示文字在宽度过小时超出部分显示 ...
+  - Input #422
+    - 🆕 给 prefix 元素默认样式，并且添加 prefixWidth 和 suffixWidth 让 input 调整左右间距
+  - Menu #417
+    - 🆕 挂载 menuitem, submenu 到 menu 上
+  - Button #425
+    - 🆕 将 assist 类型的按钮背景色由白色改为透明
+  - Table #427
+    - 🆕 添加 getCheckboxProps 参数
+  - Avatar #420
+    - 🆕 支持自定义气泡框内容
+    - 🆕 添加 style 参数
+  - Form #419
+    - 🆕 给 Form 组件和 Form.Item 增加 style 属性
+
+## 20.10.6
+
+- component
+  - 🆕 avatar, card 类型的 Upload 支持 placeholderImg 展示 [#379](https://github.com/growingio/gio-design/pull/379)
+  - 🛎 StepModal 的 onNext, onBack 支持异步调用，可打断下一步的执行 [#378](https://github.com/growingio/gio-design/pull/378)
+- popconfirm
+  - 去掉跟 disabled 相关的代码 [#377](https://github.com/growingio/gio-design/pull/377)
+- tootip
+  - 🆕 新增 disabled 参数 [#367](https://github.com/growingio/gio-design/pull/367)
+- input
+  - 修改 Input 组件为受控组件，以及相关 website demo，unit test, 样式不再固定为 300px [#374](https://github.com/growingio/gio-design/pull/374)
+- Table
+  - 修复当 Table 内容为空时，鼠标 hover 会变色的问题。定义当设置 ellipsis 时与 render 方法之间的关系。[#334](https://github.com/growingio/gio-design/pull/334)
+
+## 20.10.5
+
+- Grid
+  - 🆕 新增 Grid 组件 [#338](https://github.com/growingio/gio-design/pull/338)
+- Form
+  - 🐛 修复 colon 不渲染的问题 [#340](https://github.com/growingio/gio-design/pull/340)
+- Dropdown
+  - 💄placement 由 12 个方向改为只有上下 6 个方向可选，默认方向为下 [#333](https://github.com/growingio/gio-design/pull/333/)
+- Upload
+  - 🆕 增加一个可选参数 successBorder，控制图片上传成功后边框是否显示 [#331](https://github.com/growingio/gio-design/pull/331)
+- Select
+  - 💄 定义了 select 组件中 input 选择框内的文字尺寸 [#337](https://github.com/growingio/gio-design/pull/337)
+
 ## 20.10.4
 
 - Select

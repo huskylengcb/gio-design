@@ -7,7 +7,7 @@ import Tooltip from '../tooltip';
 import FilterPopover from './FilterPopover';
 import { SortOrder, TitleProps } from './interface';
 
-const getNextSortDirection = (sortDirections: SortOrder[], current: SortOrder): SortOrder =>
+export const getNextSortDirection = (sortDirections: SortOrder[], current: SortOrder): SortOrder =>
   current === null ? sortDirections[0] : sortDirections[sortDirections.indexOf(current) + 1];
 
 const Title = <RecordType,>(props: TitleProps<RecordType>) => {
@@ -35,7 +35,7 @@ const Title = <RecordType,>(props: TitleProps<RecordType>) => {
             prefixCls={`${prefixCls}`}
             className={`${prefixCls}-column-sorter-inner-btn`}
             type="text"
-            icon={
+            icon={(
               <>
                 <UpFilled
                   className={classNames(`${prefixCls}-column-sorter-up`, {
@@ -48,7 +48,7 @@ const Title = <RecordType,>(props: TitleProps<RecordType>) => {
                   })}
                 />
               </>
-            }
+            )}
             onClick={handleSorterChange}
           />
         </span>
@@ -74,12 +74,12 @@ const Title = <RecordType,>(props: TitleProps<RecordType>) => {
             <Button
               type="assist"
               className={`${prefixCls}-column-filter-inner-btn`}
-              icon={
+              icon={(
                 <FilterFilled
                   size="16px"
                   className={classNames(`${prefixCls}-column-filter-icon`, { active: filteredKeys.length > 0 })}
                 />
-              }
+              )}
             />
           </FilterPopover>
         </span>

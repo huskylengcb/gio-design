@@ -5,9 +5,10 @@ type ListValueType = string | string[];
 export interface IBaseListProps {
   dataSource: Option[];
   isMultiple?: boolean;
+  stateless?: boolean;
   onChange?: (value: any) => void;
   value?: any;
-  width?: number;
+  width?: number | string;
   height?: number;
   wrapStyle?: CSSProperties;
   prefixCls?: string;
@@ -15,6 +16,7 @@ export interface IBaseListProps {
   rowHeight?: number | ((option: Option) => number);
   onSelect?: (selectedValue: string, value: ListValueType, option: Option) => void;
   onDeselect?: (selectedValue: string, value: ListValueType, option: Option) => void;
+  onClick?: (value: any) => void;
 }
 
 export interface Option {
@@ -35,9 +37,9 @@ export interface SelectCoreProps {
   valueKey?: string;
   renderKey?: string;
   isMultiple: boolean;
+  stateless?: boolean;
   allowDuplicate?: boolean;
   max?: number;
-  width?: number;
   height?: number;
   rowHeight?: number | ((option: any) => number);
   isLoading?: boolean;
@@ -51,8 +53,10 @@ export interface SelectCoreProps {
   getGroupIcon?: (group: string) => React.ReactNode;
   onSelect?: IBaseListProps['onSelect'];
   onDeselect?: IBaseListProps['onDeselect'];
+  onClick?: IBaseListProps['onClick'];
   labelRenderer?: (option: any, isGroup?: boolean) => any;
   showCheckAllBox?: boolean;
+  prefixCls?: string;
 }
 
 export interface SelectListProps {
@@ -65,15 +69,16 @@ export interface SelectListProps {
   allowDuplicate?: boolean;
   required?: boolean;
   max?: number;
-  width: number;
   height: number;
   rowHeight: number | ((option: any) => number);
   onSelect?: (value: any, selectedValue?: any | any[], option?: any) => void;
   onDeselect?: (value: any, selectedValue?: any | any[], option?: any) => void;
   onChange?: (value: any) => void;
+  onClick?: (value: any) => void;
   getSelected?: (option: any, value: any) => boolean;
   getGroupIcon?: (group: string) => React.ReactNode;
   labelRenderer?: (option: any, isGroup?: boolean) => any;
+  prefixCls?: string;
 }
 
 export interface GroupProps {
@@ -86,8 +91,10 @@ export interface GroupProps {
   indeterminate?: boolean;
   showGroupCheckBox?: boolean;
   onSelect?: (option: any) => void;
+  onClick?: (option: any) => void;
   option?: any;
   labelRenderer?: (option: any, isGroup?: boolean) => Element;
+  prefixCls?: string;
 }
 
 export interface OptionProps {
@@ -101,6 +108,7 @@ export interface OptionProps {
   allowDuplicate?: boolean;
   hasGroupIcon?: boolean;
   onSelect?: (option: any) => void;
+  onClick?: (option: any) => void;
   showGroupCheckBox?: boolean;
   children?: ReactNode;
   getPopupContainer: (node: HTMLElement) => HTMLElement;

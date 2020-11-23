@@ -5,7 +5,7 @@ import FieldContext from 'rc-field-form/lib/FieldContext';
 import React, { useContext } from 'react';
 import classNames from 'classnames';
 
-import { ConfigContext } from '../config-provider';
+import usePrefixCls from '../../utils/hooks/use-prefix-cls';
 import { FormContext, FormLabelAlign } from './context';
 import { hasValidName, toArray } from './util';
 import ItemControl, { FormItemFeedbackType } from './ItemControl';
@@ -17,6 +17,7 @@ type ChildrenType = RenderChildren | React.ReactNode;
 export interface Props extends Omit<FieldProps, 'children'> {
   prefixCls?: string;
   className?: string;
+  style?: React.CSSProperties;
   label?: string;
   afterLabel?: React.ReactNode;
   afterInput?: React.ReactNode;
@@ -38,7 +39,6 @@ export interface Props extends Omit<FieldProps, 'children'> {
 
 const Item: React.FC<Props> = (props: Props) => {
   const {
-    layout,
     requiredMark,
     name: formName,
     labelWidth: _labelWidth,
@@ -49,6 +49,7 @@ const Item: React.FC<Props> = (props: Props) => {
   const {
     prefixCls: customizePrefixCls,
     className,
+    style,
     name,
     label,
     help,
@@ -68,8 +69,7 @@ const Item: React.FC<Props> = (props: Props) => {
     colon = _colon,
     labelAlign = _labelAlign,
   } = props;
-  const { getPrefixCls } = useContext(ConfigContext);
-  const prefixCls = getPrefixCls('field', customizePrefixCls);
+  const prefixCls = usePrefixCls('field', customizePrefixCls);
   const { validateTrigger: contextValidateTrigger = 'onChange' } = useContext(FieldContext);
   const mergedValidateTrigger = validateTrigger === undefined ? contextValidateTrigger : validateTrigger;
 
@@ -89,7 +89,7 @@ const Item: React.FC<Props> = (props: Props) => {
     });
 
     return (
-      <div className={cls} data-message-type={mergedFeedbackType}>
+      <div className={cls} data-message-type={mergedFeedbackType} style={style}>
         <ItemLabel
           label={label}
           labelAlign={labelAlign}
@@ -101,7 +101,7 @@ const Item: React.FC<Props> = (props: Props) => {
           requiredMark={requiredMark}
           marker={marker}
           htmlFor={htmlFor}
-          colon={colon && layout === 'horizontal' ? '：' : ''}
+          colon={colon ? '：' : ''}
         />
         <ItemControl
           prefixCls={prefixCls}

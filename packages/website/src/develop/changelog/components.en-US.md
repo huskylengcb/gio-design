@@ -9,6 +9,110 @@ nav:
 
 # @gio-design/components Change Log
 
+## 20.11.2
+
+- component
+  - 🛎 use usePrefix & withConfigConsumer to build prefixCls. [#485](https://github.com/growingio/gio-design/pull/485)
+  - Avatar
+    - 🐛 Avatar can't trigger dropdown.[#475](https://github.com/growingio/gio-design/pull/475)
+- 📖 fix all eslint errors.[#491](https://github.com/growingio/gio-design/pull/491)
+- 🛠 bump less-loader from 7.0.2 to 7.1.0.[#479](https://github.com/growingio/gio-design/pull/479)
+
+## 20.11.1
+
+- component
+  - Cascader
+    - 🆕 Add Cascader component.[#469](https://github.com/growingio/gio-design/pull/469)
+  - Select
+    - 🐛 fix Select style bug and placeholder not wokring [#466](https://github.com/growingio/gio-design/pull/466)
+    - 🐛 fix input caused style error [#456](https://github.com/growingio/gio-design/pull/456)
+  - List
+    - 🆕 add stateless prop [#468](https://github.com/growingio/gio-design/pull/468)
+    - 🆕 add padding style [#468](https://github.com/growingio/gio-design/pull/468)
+  - Table
+    - 🐛 import dependence components style [#470](https://github.com/growingio/gio-design/pull/470)
+  - Tooltip
+    - 🐛 fix should not update internal state when tooltip disabled [#465](https://github.com/growingio/gio-design/pull/465)
+  - Button
+    - 🐛 fix parent node mouseleave not work when button disabled[#464](https://github.com/growingio/gio-design/pull/464)
+  - Input, Textarea
+    - 🆕 add autosize prop for textarea component [#461](https://github.com/growingio/gio-design/pull/461)
+    - 🐛 fix fix the problem that destructing the rest may overwrite value field [#458](https://github.com/growingio/gio-design/pull/458)
+  - Dropdown
+    - 🆕 define dropdown interaction, it will be close after click the overlay area without visible [#450](https://github.com/growingio/gio-design/pull/450)
+  - DatePicker
+    - 💄 rename global gio-input classname [#446](https://github.com/growingio/gio-design/pull/446)
+- 📖 add or update sotries of alert, avatar and button [#467](https://github.com/growingio/gio-design/pull/467)
+
+## 20.11.0
+
+- component
+  - Select #393
+    - 🆕 add disabled feature
+    - 🆕 add allowCustomOption prop
+    - 🆕 add notFoundContent prop
+    - 🆕 add dropdownClassName && dropdownStyle prop
+    - 🆕 add borderd prop
+    - 🆕 add arrowComponent prop
+    - 🆕 add autoWidth prop
+    - 🆕 add matchPredicate method
+    - 🆕 add onSearch method
+    - 🆕 add onSelect method
+    - 🆕 add onDeSelect method
+    - 🆕 add dropDownVisible prop
+    - 🆕 add onDropdownVisibleChange method
+    - 🛎 remove width prop
+    - 🛎 options must follow the options of List Interface
+    - 🛎 value && defaultValue now support string or string[] as single or mulit selection mode
+    - 🛎 sign of onChange method has been change form (options: Option | Option[] ) to (value: string | string[], options: Option | Option[])
+    - 🐛 fix auto width style issue #434
+  - Dropdown #395
+    - 🐛 fix onVisibleChange not be call after click
+  - List #412
+    - 🆕 support string type of width
+  - SearchBar #408
+    - 🐛 Let the display panel adapt to the width of input,and let the prompt text show '...' when the width is too short
+  - Input #422
+    - 🆕 add prefixWidth for prefix, suffixWidth for suffix, format prefix element style
+  - Menu #417
+    - 🆕 mount menuitem, submenu to menu
+  - Button #425
+    - 🆕 change assist button background to transparent
+  - Table #427
+    - 🆕 add getCheckboxProps prop
+  - Avatar #420
+    - 🆕 support custom tooltip title
+    - 🆕 add style prop
+  - Form #419
+    - 🆕 add style prop to Form and Item
+
+## 20.10.6
+
+- component
+  - 🆕 support placholderImg in avatar and card Upload [#379](https://github.com/growingio/gio-design/pull/379)
+  - 🛎 support async function in StepModal's step change [#378](https://github.com/growingio/gio-design/pull/378)
+- popconfirm
+  - remove code associated with disabled [#377](https://github.com/growingio/gio-design/pull/377)
+- tootip
+  - 🆕 add disabled parameter [#367](https://github.com/growingio/gio-design/pull/367)
+- input
+  - change Input component is controlled component，and other website demo，unit test. and style parameter fix [#374](https://github.com/growingio/gio-design/pull/374)
+- Table
+  - Fix mouse hover will change color when the table content is empty. Define the relationship with the render method when ellipsis。[#334](https://github.com/growingio/gio-design/pull/334)
+
+## 20.10.5
+
+- Grid
+  - 🆕add gio-grid component [#338](https://github.com/growingio/gio-design/pull/338)
+- Form
+  - 🐛fix colon not render issue [#340](https://github.com/growingio/gio-design/pull/340)
+- Dropdown
+  - 💄Fixed the placement direction problem in the Dropdown component. From 12 directions to 6 directions, the default direction is down [#333](https://github.com/growingio/gio-design/pull/333/)
+- Upload
+  - 🆕An optional parameter successBorder is added to the upload component to control whether the border is displayed after the image is uploaded successfully. The default value is false [#331](https://github.com/growingio/gio-design/pull/331)
+- Select
+  - 💄The text size in the input selection box of the select component is defined [#337](https://github.com/growingio/gio-design/pull/337)
+
 ## 20.10.4
 
 - Select

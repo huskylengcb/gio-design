@@ -33,9 +33,6 @@
     }
     svg {
       color: @color-text-button-icon-disable !important;
-      path {
-        fill: @color-text-button-icon-disable !important;
-      }
     }
   }
 }
@@ -141,6 +138,7 @@
   }
   &[disabled] {
     cursor: not-allowed;
+    pointer-events: none;
     > * {
       pointer-events: none;
     }
@@ -157,9 +155,6 @@
   .button-variant-primary(@color-text-button-primary-normal; @color-background-button-primary-normal);
   svg {
     color: @color-text-button-primary-normal;
-    path {
-      fill: @color-text-button-primary-normal;
-    }
   }
 }
 // secondary button style
@@ -167,9 +162,6 @@
   .button-variant-other(@color-text-button-default-normal; @color-background-button-default-normal; @color-border-button-default-normal);
   svg {
     color: @color-text-button-default-normal;
-    path {
-      fill: @color-text-button-default-normal;
-    }
   }
 }
 // assist button style
@@ -177,9 +169,6 @@
   .button-variant-assist();
   svg {
     color: @color-text-button-assist-normal;
-    path {
-      fill: @color-text-button-assist-normal;
-    }
   }
 }
 
@@ -189,9 +178,6 @@
   .button-color(@color-text-button-normal; transparent; transparent);
   svg {
     color: @color-text-button-normal;
-    path {
-      fill: @color-text-button-normal;
-    }
   }
   box-shadow: none;
   &:hover {
@@ -200,9 +186,6 @@
     border-color: transparent;
     svg {
       color: @color-text-button-hover;
-      path {
-        fill: @color-text-button-hover;
-      }
     }
   }
 
@@ -212,9 +195,6 @@
     border-color: transparent;
     svg {
       color: @color-text-button-click;
-      path {
-        fill: @color-text-button-click;
-      }
     }
   }
 

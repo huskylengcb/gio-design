@@ -8,7 +8,6 @@
 
 .@{input-prefix-cls} {
   display: inline-block;
-  width: 300px;
 
   &-textarea {
     height: 80px;
@@ -29,7 +28,7 @@
     outline: none;
     transition: all 0.3s ease-in-out;
 
-    &-medium {
+    &-middle {
       height: @input-height-base;
     }
 
@@ -43,6 +42,10 @@
 
     &-suffix {
       padding-right: 44px;
+    }
+
+    &-prefix {
+      padding-left: 50px;
     }
 
     &::placeholder {
@@ -70,9 +73,17 @@
     position: relative;
 
     &-suffix {
-      position: absolute;
-      top: 8px;
       right: 15px;
+    }
+
+    &-prefix {
+      left: 15px;
+    }
+
+    &-suffix,
+    &-prefix {
+      position: absolute;
+      top: 7px;
 
       &-iconGroup {
         display: flex;

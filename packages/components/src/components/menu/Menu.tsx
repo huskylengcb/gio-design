@@ -1,9 +1,11 @@
-import React, { useCallback, useContext, Children } from 'react';
+import React, { useCallback, Children } from 'react';
 import RcMenu from 'rc-menu';
 import classnames from 'classnames';
-import { ConfigContext } from '../config-provider';
+import usePrefixCls from '../../utils/hooks/use-prefix-cls';
 import MenuPrefixClsContext from './MenuContext';
 import { IMenuProps, TMenuMode } from './interface';
+import MenuItem from './MenuItem';
+import SubMenu from './SubMenu';
 
 const transform2RcMode = (mode: TMenuMode) => (mode === 'vertical' ? 'inline' : 'horizontal');
 
@@ -14,10 +16,10 @@ const getOpenKeys = (mode: TMenuMode, children: React.ReactNode) => {
   return Children.map(children, (_: any) => (_.type.displayName === 'GIODesignSubMenu' ? _.key : null));
 };
 
-const Menu: React.FC<IMenuProps> = (props: IMenuProps) => {
+const Menu = (props: IMenuProps) => {
   const {
     mode = 'horizontal',
-    prefixCls,
+    prefixCls: customPrefixCls,
     className,
     selectedKey = '',
     defaultSelectedKey = '',
@@ -26,8 +28,7 @@ const Menu: React.FC<IMenuProps> = (props: IMenuProps) => {
     ...restProps
   } = props;
 
-  const { getPrefixCls } = useContext(ConfigContext);
-  const prefix = getPrefixCls('menu', prefixCls);
+  const prefixCls = usePrefixCls('menu', customPrefixCls);
   const cls = classnames(className);
 
   const realMode = transform2RcMode(mode);
@@ -50,14 +51,14 @@ const Menu: React.FC<IMenuProps> = (props: IMenuProps) => {
   );
 
   return (
-    <MenuPrefixClsContext.Provider value={prefix}>
+    <MenuPrefixClsContext.Provider value={prefixCls}>
       <RcMenu
         {...spreadProps}
         mode={realMode}
         selectedKeys={[selectedKey]}
         defaultSelectedKeys={[defaultSelectedKey]}
         onClick={handleClick}
-        prefixCls={prefix}
+        prefixCls={prefixCls}
         className={cls}
       >
         {children}
@@ -65,5 +66,8 @@ const Menu: React.FC<IMenuProps> = (props: IMenuProps) => {
     </MenuPrefixClsContext.Provider>
   );
 };
+
+Menu.MenuItem = MenuItem;
+Menu.SubMenu = SubMenu;
 
 export default Menu;
